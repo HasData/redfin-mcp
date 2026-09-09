@@ -328,7 +328,7 @@ The free tier is **1,000 credits every month with no card**, which is 200 Redfin
 
 Paid plans start at **$49 a month** for 200,000 credits, which is 40,000 calls. The unit price falls with volume, from **$1.23 per 1,000 calls** on the entry plan to **$0.50** on Business, **$0.42** on Growth and **$0.37** on the largest [high-volume plans](https://hasdata.com/prices?utm_source=github&utm_medium=syndication&utm_campaign=redfin-mcp).
 
-Your plan also sets concurrency. The free tier allows 1 request at a time, Startup 15, Business 30, Growth 50, and the high-volume plans run from 200 to 1,500. Handle the overflow case defensively in anything unattended, because an agent that walks a list of properties will reach the ceiling before you do.
+Your plan also sets concurrency. The free tier allows 1 request at a time, Startup 15, Business 30, Growth 50, and the high-volume plans run from 200 to 1,500. Retry on the 429 with a backoff in anything unattended, because an agent that walks a list of properties will reach the ceiling before you do.
 
 A request that comes back non-200 is not billed. A successful call that finds nothing is still a call.
 
@@ -336,7 +336,7 @@ A request that comes back non-200 is not billed. A successful call that finds no
 
 Start from what the prompt gives you. A market, a zipcode or a school district goes to the search tool. A Redfin URL goes straight to the property tool. Spending a search call to reach a URL you already have is the most common waste.
 
-Then pick by depth. The search result is enough for ranking, price sweeps and market summaries, and it already carries price, beds, baths, area, year built and days on site. The property tool is the only one that returns the specification block, the assigned schools and the listing agent, and it is worth one call per property you actually care about rather than one per row.
+Then pick by depth. The search result is enough for ranking, price sweeps and market summaries, and it already carries price, beds, baths, area, year built and days on site. The property tool is the only one that returns the specification block, the assigned schools and the listing agent, and it is worth one call per property you care about rather than one per row.
 
 Filter server-side. The schema mirrors Redfin's filter panel precisely, so a query like "three beds, under $500k, built before 1970, in this zipcode" is one call with four parameters, not a page sweep followed by local filtering.
 
