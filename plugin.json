@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hasdata-redfin-mcp",
+  "version": "1.0.0",
+  "description": "Redfin MCP server for Cursor. For-sale, for-rent and sold listings with the full filter set, plus complete property pages, as structured JSON. Remote MCP server hosted by HasData, connects over streamable HTTP with your HasData API key.",
+  "author": {
+    "name": "HasData",
+    "url": "https://hasdata.com"
+  },
+  "homepage": "https://hasdata.com/apis/redfin-api",
+  "repository": "https://github.com/HasData/redfin-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "redfin",
+    "redfin-mcp",
+    "real-estate",
+    "property-data",
+    "mls",
+    "model-context-protocol",
+    "hasdata",
+    "scraper"
+  ]
+}
