@@ -167,6 +167,11 @@ A prompt that names a market goes to the search tool. A prompt that hands you a 
 
 ## Tools
 
+| Tool | Credits | What it returns |
+| :--- | :--- | :--- |
+| `hasdata_redfin_listing_getRealEstateListings` | 5 | Each listing with address, Redfin URL, list price, beds/baths, square footage, lot size, year built, days on market, status, coordinates, photos, MLS number, and HOA; an… |
+| `hasdata_redfin_property_getPropertyDetails` | 5 | Address, list/sold price, price history, Redfin Estimate, beds/baths, square footage, lot size, year built, property type, HOA, days on market, school ratings, tax… |
+
 Two tools, 5 credits per successful call.
 
 ### Get Redfin real estate listings
