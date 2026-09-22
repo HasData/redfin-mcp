@@ -219,6 +219,8 @@ The ones worth knowing:
 
 A market search returns `searchInformation` with `totalResults`, a `properties` array of 40, and `pagination` with `currentPage`, `nextPage` and an `otherPages` map. A for-sale or sold property carries `id`, `mlsId`, `url`, `homeType`, `status`, `price`, `beds`, `baths`, `area`, `yearBuilt`, `daysOnSite`, `addressRaw`, a parsed `address`, `latitude`, `longitude`, `description`, `atAGlanceFacts` and `photos`.
 
+`atAGlanceFacts` has two shapes. On a search row it is a list of selling-point strings, and on the property response it is a list of `factLabel` and `factValue` pairs, so code that reads one shape breaks on the other.
+
 ```json
 {
   "id": 31625298,
@@ -236,11 +238,7 @@ A market search returns `searchInformation` with `totalResults`, a `properties` 
   "address": { "street": "1721 Deerfield Dr", "city": "Austin", "state": "TX", "zipcode": "78741" },
   "latitude": 30.231372,
   "longitude": -97.734893,
-  "atAGlanceFacts": [
-    { "factLabel": "Property Type", "factValue": "Single-family" },
-    { "factLabel": "Year Built", "factValue": "1963" },
-    { "factLabel": "Price/Sq.Ft.", "factValue": "$405" }
-  ]
+  "atAGlanceFacts": ["Hill country views", "2020 roof", "Stainless appliances"]
 }
 ```
 
