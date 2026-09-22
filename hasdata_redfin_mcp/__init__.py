@@ -7,7 +7,7 @@ import os
 import sys
 import subprocess
 
-URL = "https://mcp.hasdata.com/api/mcp?apis=redfin"
+URL = "https://mcp.hasdata.com/mcp?apis=redfin"
 
 
 def main() -> None:

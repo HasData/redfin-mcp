@@ -17,7 +17,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-const ENDPOINT = 'https://mcp.hasdata.com/api/mcp?apis=redfin';
+const ENDPOINT = 'https://mcp.hasdata.com/mcp?apis=redfin';
 const KEY = process.env.HASDATA_API_KEY;
 const TIMEOUT_MS = 30_000;
 

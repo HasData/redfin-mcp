@@ -3,7 +3,7 @@
   "mcpServers": {
     "redfin": {
       "type": "streamable-http",
-      "url": "https://mcp.hasdata.com/api/mcp?apis=redfin",
+      "url": "https://mcp.hasdata.com/mcp?apis=redfin",
       "headers": {
         "x-api-key": "YOUR_HASDATA_API_KEY"
       }

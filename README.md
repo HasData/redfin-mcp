@@ -9,12 +9,12 @@ It reads public Redfin pages that a signed-out visitor can see.
 **1,000 free credits every month, no card required**, which is 200 Redfin calls at the 5-credit rate.
 
 ```
-https://mcp.hasdata.com/api/mcp?apis=redfin
+https://mcp.hasdata.com/mcp?apis=redfin
 ```
 
 [![Glama score](https://glama.ai/mcp/servers/HasData/redfin-mcp/badges/score.svg)](https://glama.ai/mcp/servers/HasData/redfin-mcp)
 [![tool contract](https://github.com/HasData/redfin-mcp/actions/workflows/contract.yml/badge.svg)](https://github.com/HasData/redfin-mcp/actions/workflows/contract.yml)
-[![MCP](https://img.shields.io/badge/MCP-remote%20%7C%20streamable%20HTTP-6366f1?style=flat-square)](https://mcp.hasdata.com/api/mcp?apis=redfin)
+[![MCP](https://img.shields.io/badge/MCP-remote%20%7C%20streamable%20HTTP-6366f1?style=flat-square)](https://mcp.hasdata.com/mcp?apis=redfin)
 [![Tools](https://img.shields.io/badge/tools-2-10b981?style=flat-square)](#tools)
 [![npm](https://img.shields.io/npm/v/@hasdata/redfin-mcp?style=flat-square&logo=npm&label=npm&color=cb3837)](https://www.npmjs.com/package/@hasdata/redfin-mcp)
 [![PyPI](https://img.shields.io/pypi/v/hasdata-redfin-mcp?style=flat-square&logo=pypi&logoColor=white&label=PyPI&color=3775a9)](https://pypi.org/project/hasdata-redfin-mcp/)
@@ -46,7 +46,7 @@ The server URL is the same for every client. We run it hands-on in Claude Code a
 
 | Field | Value |
 | :--- | :--- |
-| URL | `https://mcp.hasdata.com/api/mcp?apis=redfin` |
+| URL | `https://mcp.hasdata.com/mcp?apis=redfin` |
 | Transport | HTTP, streamable |
 | Auth header | `x-api-key: HASDATA_API_KEY` |
 
@@ -56,7 +56,7 @@ Clients with OAuth support can add the same URL as a connector and sign in witho
 <summary><b>Claude Code</b></summary>
 
 ```bash
-claude mcp add --transport http redfin "https://mcp.hasdata.com/api/mcp?apis=redfin" \
+claude mcp add --transport http redfin "https://mcp.hasdata.com/mcp?apis=redfin" \
   --header "x-api-key: HASDATA_API_KEY"
 ```
 
@@ -65,7 +65,7 @@ claude mcp add --transport http redfin "https://mcp.hasdata.com/api/mcp?apis=red
 <details>
 <summary><b>Claude Desktop</b></summary>
 
-Settings, then Connectors, then Add custom connector, then paste `https://mcp.hasdata.com/api/mcp?apis=redfin` and sign in.
+Settings, then Connectors, then Add custom connector, then paste `https://mcp.hasdata.com/mcp?apis=redfin` and sign in.
 
 For the config-file route, Claude Desktop loads only local (stdio) servers, so it reaches a remote server through a stdio launcher. The `@hasdata/redfin-mcp` package is that launcher, and it reads the key from the environment. Add this to `claude_desktop_config.json`:
 
@@ -106,7 +106,7 @@ For Python instead of Node, swap the launcher for the PyPI package, which `uvx` 
 {
   "mcpServers": {
     "redfin": {
-      "url": "https://mcp.hasdata.com/api/mcp?apis=redfin",
+      "url": "https://mcp.hasdata.com/mcp?apis=redfin",
       "headers": { "x-api-key": "HASDATA_API_KEY" }
     }
   }
@@ -124,7 +124,7 @@ For Python instead of Node, swap the launcher for the PyPI package, which `uvx` 
 {
   "mcpServers": {
     "redfin": {
-      "serverUrl": "https://mcp.hasdata.com/api/mcp?apis=redfin",
+      "serverUrl": "https://mcp.hasdata.com/mcp?apis=redfin",
       "headers": { "x-api-key": "HASDATA_API_KEY" }
     }
   }
@@ -143,7 +143,7 @@ For Python instead of Node, swap the launcher for the PyPI package, which `uvx` 
   "servers": {
     "redfin": {
       "type": "http",
-      "url": "https://mcp.hasdata.com/api/mcp?apis=redfin",
+      "url": "https://mcp.hasdata.com/mcp?apis=redfin",
       "headers": { "x-api-key": "HASDATA_API_KEY" }
     }
   }
