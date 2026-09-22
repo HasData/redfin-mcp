@@ -307,15 +307,15 @@ Returns a `property` object. On top of everything the search result carries, it 
 
 Plan for these rather than assuming a happy path.
 
-**`soldWithinOption` is currently broken and silently returns for-sale homes labelled `SOLD`.** Passing any of its values puts the value straight into the Redfin filter, Redfin does not recognise it, and the response is the active for-sale list with `status` stamped as `SOLD`. Every listing came back identical to the plain for-sale search in our checks. Leave the parameter off. `type: sold` on its own works correctly and covers the last three months, which is Redfin's own default window.
+**`soldWithinOption` narrows a sold search to a window, and it needs `type: sold` to mean anything.** The windows nest as you would expect, so a one-week window returns a small fraction of what a one-year window returns for the same market. `type: sold` without it covers Redfin's own default of the last three months. Sold and for-sale searches return disjoint sets, so a listing never appears in both.
 
 **The search tool returns three different shapes, and which one you get depends on the keyword.** A market keyword answers with `searchInformation`, `properties` and `pagination`. A full street address or a named building answers with a single `property` object and no `properties` array, no `searchInformation` and no `pagination`. A rental search answers with the range-shaped entries shown above. Branch on the presence of `properties` before you iterate it.
 
-**`totalResults` tops out at 350, and that is a ceiling rather than a count.** Austin and New York both report 350 while a single zipcode reports 168 and a small town 57. Pagination stops at nine pages of 40. To enumerate a large market, slice it by zipcode, price band or home type instead of paging, because there is no page ten.
+**`totalResults` reports the whole set, and a large market runs into the thousands.** A page holds forty listings and `pagination.otherPages` enumerates the rest, which reaches into the hundreds of pages for a city. Deep pages do come back, so paging works, but walking a market end to end is a call per page. Slice by zipcode, price band or home type when the budget matters more than completeness.
 
 **Sold search does not give you sold prices as a separate field.** `price` holds whatever the page shows for that status, so a for-sale price and a sold price arrive in the same field. Read `status` alongside it every time.
 
-**There is no price history, tax history or Redfin Estimate in the property response.** Those sit on the page but are not in what the tool returns today. What you get instead is `propertyDetails.publicFacts`, which carries the assessor-style facts as label and value pairs.
+**The property response carries the history the search does not.** `priceHistory` and `taxHistory` arrive as event lists, `redfinEstimate` holds the estimate with the comparables behind it, and `propertyDetails` groups the assessor-style facts under `publicFacts` alongside `parking`, `interior`, `exterior`, `financial` and `utilities`. None of that is on a search row, so a question about history is a property call.
 
 **`nearby.pointsOfInterest` is nearby places, not comparable sales.** Its `categories` come from a third-party places dataset and are frequently wrong, so a title loan office can arrive tagged as a bar. Use the names and coordinates, and do not trust the category.
 
@@ -381,7 +381,7 @@ Because Redfin resolves a full street address to that property's page rather tha
 
 ### How do I pull every listing in a city?
 
-You cannot, in one sweep. Redfin caps a result set at 350 across nine pages, so a large market has to be cut into smaller queries by zipcode, price band or home type, and the slices stitched together.
+By paging, at a call per page. A city reports its full count in `totalResults` and hands you forty listings at a time, so a large market is hundreds of calls rather than a single sweep. Cutting the market by zipcode, price band or home type gives the same coverage in fewer, narrower queries, which is usually the better trade.
 
 ### Can I filter sold listings by date?
 
