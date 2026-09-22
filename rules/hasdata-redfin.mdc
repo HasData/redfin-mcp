@@ -1,0 +1,40 @@
+---
+description: How to pull Redfin listings and property details through the HasData MCP server
+alwaysApply: false
+---
+
+# Redfin through HasData
+
+Two tools. `hasdata_redfin_listing_getRealEstateListings` searches and needs both `keyword` and `type`. `hasdata_redfin_property_getPropertyDetails` opens one home by its Redfin `url`.
+
+`type` is an enum of `forSale`, `forRent` and `sold`. Sold comps and active inventory are different questions, and mixing them produces a number that describes neither.
+
+## The search returns three different shapes
+
+A city or neighbourhood keyword returns `searchInformation`, a `properties` array of about forty, and `pagination`. That is the shape everything below describes.
+
+A street address or a named building returns a single `property` object instead, with no `properties`, no `searchInformation` and no pagination, and `type` does not apply to it. Branch on which key is present before iterating, because a loop over `properties` on an address lookup silently finds nothing.
+
+A `forRent` search returns buildings rather than homes, so the shape changes again. `price`, `beds`, `baths` and `area` each become a `{ min, max }` object, the entry gains `propertyName`, `availableUnits`, `agentEmail` and `agentPhone`, and it loses `mlsId`, `homeType`, `yearBuilt` and `daysOnSite`. Averaging `price` across a rental search means averaging objects.
+
+## Narrowing
+
+`sort` runs from `recommended` and `newest` through the price, size, bedroom, bathroom and lot orders to `mostRecentlySold`. Price bounds go in `price_min_` and `price_max_`, bedrooms in `beds_min_` and `beds_max_`, and `soldWithinOption` narrows sold results to a window such as `lastOneMonth`.
+
+The monthly payment filters are a set. `monthlyPayment_min_` and `monthlyPayment_max_` are read against `monthlyPayment_interestRate_`, `monthlyPayment_downPaymentPercent_` and the rest, so send the assumptions along with the band.
+
+`page` asks for a later page of the same search, and the response reports where you are in `pagination` with `currentPage`, `nextPage` and `otherPages`.
+
+## Reading the payload
+
+A for-sale listing carries `id`, `mlsId`, `url`, `address`, `latitude`, `longitude`, `beds`, `baths`, `area` in square feet, `yearBuilt`, `homeType`, `status`, `daysOnSite`, `currency` and `atAGlanceFacts`.
+
+`price` is not guaranteed. Some listings come back without one, and treating a missing price as zero ruins an average, so drop those rows and say how many you dropped. `description` and the images are optional in the same way.
+
+The property tool returns much more than the listing does. On top of the listing fields it carries `redfinEstimate`, `priceHistory`, `taxHistory`, `propertyDetails`, `schools`, `nearby`, `agentInfo`, `openHouseSchedule` and `viewsActivity`, which is where a question about history or schools is answered rather than in the search.
+
+## Attribution
+
+Prices, estimates and days on market are Redfin's figures. Report them as Redfin's rather than as the market, and keep the pull date next to them, because inventory turns over weekly.
+
+Each successful call spends credits, so search with the filters set rather than pulling a market and sorting locally.
