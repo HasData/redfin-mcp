@@ -3,7 +3,7 @@
   "name": "com.hasdata/redfin",
   "title": "HasData Redfin",
   "description": "Redfin for-sale, for-rent and sold listings plus full property pages, as structured JSON.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "websiteUrl": "https://hasdata.com/apis/redfin-api",
   "repository": {
     "url": "https://github.com/HasData/redfin-mcp",
@@ -27,7 +27,7 @@
     {
       "registryType": "npm",
       "identifier": "@hasdata/redfin-mcp",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "transport": {
         "type": "stdio"
       },
@@ -43,7 +43,7 @@
     {
       "registryType": "pypi",
       "identifier": "hasdata-redfin-mcp",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"
