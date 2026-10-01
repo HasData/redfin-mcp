@@ -6,7 +6,7 @@ A hosted Model Context Protocol (MCP) server that gives Claude, Cursor, Windsurf
 
 It reads public Redfin pages that a signed-out visitor can see.
 
-**1,000 free credits every month, no card required**, which is 200 Redfin calls at the 5-credit rate.
+**1,000 free credits every month, no card required**, which is 100 Redfin calls at the 5-credit rate.
 
 ```
 https://mcp.hasdata.com/mcp?apis=redfin
@@ -169,10 +169,10 @@ A prompt that names a market goes to the search tool. A prompt that hands you a 
 
 | Tool | What it returns |
 | --- | --- |
-| `hasdata_redfin_listing_getRealEstateListings` | Each listing with address, Redfin URL, list price, beds/baths, square footage, lot size, year built, days on market, status, coordinates, photos, MLS number, and HOA; an…. 5 credits a call |
-| `hasdata_redfin_property_getPropertyDetails` | Address, list/sold price, price history, Redfin Estimate, beds/baths, square footage, lot size, year built, property type, HOA, days on market, school ratings, tax…. 5 credits a call |
+| `hasdata_redfin_listing_getRealEstateListings` | Each listing with address, Redfin URL, list price, beds/baths, square footage, lot size, year built, days on market, status, coordinates, photos, MLS number, and HOA; an…. 10 credits a call |
+| `hasdata_redfin_property_getPropertyDetails` | Address, list/sold price, price history, Redfin Estimate, beds/baths, square footage, lot size, year built, property type, HOA, days on market, school ratings, tax…. 10 credits a call |
 
-Two tools, 5 credits per successful call.
+Two tools, 10 credits per successful call.
 
 ### Get Redfin real estate listings
 
@@ -325,11 +325,11 @@ Results that carry data also carry a `requestMetadata.id` worth quoting in suppo
 
 ## Pricing, free tier and limits
 
-Each Redfin tool costs **5 credits per successful call**. Response size does not change the price, so a 40-listing page and a single property cost the same.
+Each Redfin tool costs **10 credits per successful call**. Response size does not change the price, so a 40-listing page and a single property cost the same.
 
-The free tier is **1,000 credits every month with no card**, which is 200 Redfin calls at the base rate. It renews with the billing cycle, so a low-volume agent runs on the free tier indefinitely.
+The free tier is **1,000 credits every month with no card**, which is 100 Redfin calls at the base rate. It renews with the billing cycle, so a low-volume agent runs on the free tier indefinitely.
 
-Paid plans start at **$59 a month** for 200,000 credits, which is 40,000 calls. The unit price falls with volume, from **$1.48 per 1,000 calls** on the entry plan to **$0.60** on Basic and **$0.41** across the Growth tiers. Current figures live on the [pricing page](https://hasdata.com/prices?utm_source=github&utm_medium=syndication&utm_campaign=redfin-mcp).
+Paid plans start at **$59 a month** for 200,000 credits, which is 20,000 calls. The unit price falls with volume, from **$1.48 per 1,000 calls** on the entry plan to **$0.60** on Basic and **$0.41** across the Growth tiers. Current figures live on the [pricing page](https://hasdata.com/prices?utm_source=github&utm_medium=syndication&utm_campaign=redfin-mcp).
 
 Your plan also sets concurrency. The free tier allows 1 request at a time, Startup 5, Basic 15, and the Growth tiers run from 50 to 500. Retry on the 429 with a backoff in anything unattended, because an agent that walks a list of properties will reach the ceiling before you do.
 
@@ -355,7 +355,7 @@ There is no public Redfin API, so the real alternative is an MLS or IDX feed.
 | Sold data | Full history where the MLS permits it | The recent window Redfin shows |
 | Rentals | Often a separate feed or absent | The same tool, with a range shape |
 | Redistribution | Contractually restricted | Your responsibility to check |
-| Cost | Setup fees plus monthly, per MLS | Paid past the free tier, 5 credits a call |
+| Cost | Setup fees plus monthly, per MLS | Paid past the free tier, 10 credits a call |
 
 The row that decides it is eligibility. An MLS feed is the authoritative source and it needs a licence you cannot buy as a developer, which rules it out for research, prototypes and anything an agent does on your behalf. When you are a brokerage with a feed already, the feed is more complete and more current, and you should use it.
 
@@ -420,7 +420,7 @@ npm install
 HASDATA_API_KEY=your_key_here npm test
 ```
 
-The tests in `test/` assert the tool contract, the part that can break without a commit here. They check that `?apis=redfin` returns the expected tool count, that no name changed, that every tool still declares its required parameters and carries a description, that the filter enums this README documents are still the ones the schema offers, and that the key in use is actually accepted. That last check calls a tool for real and costs 5 credits, which is the price of a canary that can fail for the right reason.
+The tests in `test/` assert the tool contract, the part that can break without a commit here. They check that `?apis=redfin` returns the expected tool count, that no name changed, that every tool still declares its required parameters and carries a description, that the filter enums this README documents are still the ones the schema offers, and that the key in use is actually accepted. That last check calls a tool for real and costs 10 credits, which is the price of a canary that can fail for the right reason.
 
 The contract suite also runs weekly on a schedule, because the upstream tool list can change without anyone touching this repository.
 
