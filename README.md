@@ -16,6 +16,7 @@ https://mcp.hasdata.com/mcp?apis=redfin
 [![tool contract](https://github.com/HasData/redfin-mcp/actions/workflows/contract.yml/badge.svg)](https://github.com/HasData/redfin-mcp/actions/workflows/contract.yml)
 [![MCP](https://img.shields.io/badge/MCP-remote%20%7C%20streamable%20HTTP-6366f1?style=flat-square)](https://mcp.hasdata.com/mcp?apis=redfin)
 [![Tools](https://img.shields.io/badge/tools-2-10b981?style=flat-square)](#tools)
+- [Prompts and resources](#prompts-and-resources)
 [![npm](https://img.shields.io/npm/v/@hasdata/redfin-mcp?style=flat-square&logo=npm&label=npm&color=cb3837)](https://www.npmjs.com/package/@hasdata/redfin-mcp)
 [![PyPI](https://img.shields.io/pypi/v/hasdata-redfin-mcp?style=flat-square&logo=pypi&logoColor=white&label=PyPI&color=3775a9)](https://pypi.org/project/hasdata-redfin-mcp/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
@@ -300,6 +301,45 @@ Returns a `property` object. On top of everything the search result carries, it 
   "schools": { "assignedSchools": [{ "greatSchoolsRating": 6, "parentRating": 5, "servesHome": true }] }
 }
 ```
+
+## Prompts and resources
+
+The server exposes 30 resources, one per parameter whose accepted values are a fixed list. Reading one is cheaper than learning the vocabulary from a rejected call, and it costs no credits. Each URI is `hasdata://redfin/<parameter>`.
+
+| Parameter | Values | What it selects |
+| --- | ---: | --- |
+| `type` | 3 | The type of listing. |
+| `sort` | 12 | The sorting option for the search results. |
+| `monthlyPayment_mortgageTerm_` | 6 | The mortgage term used to calculate the monthly payment. |
+| `cost_pricePerSqft__min_` | 16 | The minimum price per square foot. |
+| `cost_pricePerSqft__max_` | 16 | The maximum price per square foot. |
+| `cost_acceptedFinancing_` | 2 | The accepted financing type. |
+| `cost_priceReduced_` | 8 | Filter listings by when the price was reduced. |
+| `homeTypes__` | 10 | An array of home types to filter the listings. Allowed values depend on the listing `type`. |
+| `baths` | 6 | The minimum number of bathrooms. |
+| `forSaleSquareFeet_min_` | 20 | The minimum square footage for for-sale listings. |
+| `forSaleSquareFeet_max_` | 20 | The maximum square footage for for-sale listings. |
+| `lotSize_min_` | 16 | The minimum lot size. |
+| `lotSize_max_` | 16 | The maximum lot size. |
+| `yearBuilt_min_` | 23 | The minimum year the property was built. |
+| `yearBuilt_max_` | 23 | The maximum year the property was built. |
+| `stories_min_` | 8 | The minimum number of stories. |
+| `stories_max_` | 8 | The maximum number of stories. |
+| `listingType_category___` | 4 | An array of listing categories. |
+| `statusOptions__` | 3 | An array of listing statuses. |
+| `timeOnRedfin` | 12 | How long the listing has been on Redfin. |
+| `soldWithinOption` | 8 | Filter sold listings by how recently they were sold. |
+| `openHouseAndTour_openHouse_` | 2 | Filter listings with an open house. |
+| `homeFeatures_options___` | 14 | An array of home feature flags to filter the listings. |
+| `homeFeatures_garageSpotsMin_` | 5 | The minimum number of garage spots. |
+| `homeFeatures_poolType_` | 4 | The type of pool. |
+| `homeFeatures_basement_` | 2 | The basement type. |
+| `rentalAmenities__` | 10 | An array of rental amenities to filter the listings. |
+| `rentalOtherTerms__` | 5 | An array of additional rental terms. |
+| `pets__` | 2 | An array of pet types allowed. |
+| `schools_schoolType___` | 3 | An array of school types. |
+
+The list is served without an API key, so a client can read it before a user has signed up.
 
 ## Errors and failure paths
 
