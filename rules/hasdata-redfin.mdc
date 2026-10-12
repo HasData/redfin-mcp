@@ -38,3 +38,7 @@ The property tool returns much more than the listing does. On top of the listing
 Prices, estimates and days on market are Redfin's figures. Report them as Redfin's rather than as the market, and keep the pull date next to them, because inventory turns over weekly.
 
 Each successful call spends credits, so search with the filters set rather than pulling a market and sorting locally.
+
+## Prompts and resources
+
+The server also serves resources that spell out the accepted values of every parameter that takes a fixed list, each one at `hasdata://redfin/<parameter>`. Reading one spends no credits and makes no upstream request, which beats discovering the vocabulary from a rejected call. Listing them needs no API key either, so a client can read them before the user has connected an account.
